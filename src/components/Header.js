@@ -2,14 +2,18 @@ import { faCaretDown,faCaretUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import Signout from './Signout';
+import { useSelector } from 'react-redux';
 
-const Header = ({disbleMenu=false}) => {
+const Header = () => {
 
   const [buttonclick,setButtonClick] = useState(false)
   const handleClick=()=>{
-      if(disbleMenu) return ;
+     
       setButtonClick(!buttonclick)
   }
+  const user = useSelector((store)=> store.user);
+  console.log(user)
+
   return (
     <div className="absolute w-full px-7 py-3 bg-gradient-to-b from-black z-10 flex justify-between">
       <img
@@ -18,14 +22,14 @@ const Header = ({disbleMenu=false}) => {
         alt="Netflix Logo"
       ></img>
 
-      <div className="flex justify-center">
+      {user && <div className="flex justify-center">
         <img className="w-14 h-14 mx-8 my-3" src="https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg" />
         <button type='button' className="p-2 w-9 h-9 my-6 rounded-md bg-slate-600" onClick={handleClick}>
           {!buttonclick ? <FontAwesomeIcon className=" text-white text-lg" icon={faCaretDown}/> : <FontAwesomeIcon className=" text-white text-lg" icon={faCaretUp}/> }
         </button>
         {buttonclick && <Signout/> }
        
-      </div>
+      </div>}
       
     </div>
     
