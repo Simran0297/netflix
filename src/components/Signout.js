@@ -18,11 +18,9 @@ const Signout = () => {
   };
 
   return (
-    <div className="absolute bg-gray-800 text-white my-20 p-3 mx-2">
+    <div className="absolute bg-blue-950 text-white my-20 p-3 mx-2">
       <p>You are Signed In As: </p>
-      <p> {user.email}</p>
       <p>{user.displayName}</p>
-
       <button
         className="bg-red-500 my-2 mx-12 w-20 p-2 rounded-md "
         onClick={handleSignOut}

@@ -4,10 +4,12 @@ import { formValidate } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  updateProfile
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { NETFLIX_BACKGROUND } from "../utils/constants";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -16,8 +18,8 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const fullName = useRef(null);
-  const navigate = useNavigate();
-  
+
+  const dispatch = useDispatch();
 
   const toggleSignInForm = () => {
     setIsSignIn(!isSignIn);
@@ -49,17 +51,17 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(auth.currentUser, {
             displayName: fullName.current.value,
-            
           })
             .then(() => {
-    
-              navigate("/browse")
+              const { uid, email, displayName } = auth.currentUser;
+              dispatch(
+                addUser({ uid: uid, email: email, displayName: displayName })
+              );
+           
             })
             .catch((error) => {
-             setErrorMessage(error.message)
+              setErrorMessage(error.message);
             });
-
-          
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -74,7 +76,7 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          navigate("/browse");
+         
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -88,8 +90,7 @@ const Login = () => {
       <Header />
       <div className="absolute">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/7d2359a4-434f-4efa-9ff3-e9d38a8bde7f/web/IN-en-20250707-TRIFECTA-perspective_4faa9280-a2c5-4e07-aafc-a45ce43fea09_large.jpg
-            "
+          src={NETFLIX_BACKGROUND}
           alt="Netflix-Background"
         ></img>
       </div>
