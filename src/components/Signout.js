@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 const Signout = () => {
   const user = useSelector((state) => state.user);
-  console.log(user)
   const navigate = useNavigate();
 
   const handleSignOut = () => {

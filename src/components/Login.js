@@ -88,16 +88,17 @@ const Login = () => {
   return (
     <div>
       <Header />
-      <div className="absolute">
+      <div className="absolute  inset-0 -z-10">
         <img
           src={NETFLIX_BACKGROUND}
           alt="Netflix-Background"
+          className="w-full h-full object-cover"
         ></img>
       </div>
 
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="rounded-lg absolute w-1/3 bg-black px-16 py-12 h-auto my-40 mx-auto left-0 right-0 bg-opacity-75 text-white"
+        className="rounded-lg absolute w-1/3 bg-black px-16 py-12 h-auto my-80 mx-auto left-0 right-0 bg-opacity-75 text-white"
       >
         <h1 className="font-bold text-3xl p-3">
           {isSignIn ? "Sign In" : "Sign Up"}
@@ -127,7 +128,7 @@ const Login = () => {
           className="w-full bg-red-700  py-3 text-center my-3  rounded-lg"
           onClick={handleSignIn}
         >
-          Sign In
+          {isSignIn ? "Sign In" : "Sign Up"}
         </button>
         <p className="py-4 cursor-pointer" onClick={toggleSignInForm}>
           {isSignIn
